@@ -80,7 +80,7 @@ The computation above was repeated for all 122 categories in which there were at
 Results are shown in the table below:
 
 | | # of Venues | # of Venues With Next | Total # of Next Venues | Next Category #1 | Pct. #1 | Next Category #2 | Pct. #2 | Next Category #3 | Pct. #3 | Next Category #4 | Pct. #4 | Next Category #5 | Pct. #5 |
-| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:|
+| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| ---:| 
 | American Restaurant | 154 | 102 | 399 | Coffee Shop | 6.8 | Shopping Mall | 6.3 | Bar | 4.9 | Grocery Store | 4.5 | Ice Cream Shop | 3.7 |
 | Art Gallery | 87 | 46 | 156 | Art Gallery | 24.7 | Bar | 6.8 | Art Museum | 5.6 | Garden | 2.9 | Gastropub | 2.8 |
 | Art Museum | 20 | 14 | 59 | Art Museum | 28.4 | Coffee Shop | 11.5 | Sculpture Garden | 7.3 | New American Restaurant | 6.9 | Historic Site | 6.9 |
