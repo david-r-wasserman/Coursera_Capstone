@@ -72,6 +72,11 @@ The computation above was repeated for all 122 categories in which there were at
 
 ## Results
 
+| Command | Description |
+| --- | --- |
+| git status | List all new or modified files |
+| git diff | Show file differences that haven't been staged |
+
 Results are shown in the table below:
 
 | | # of Venues | # of Venues With Next | Total # of Next Venues | Next Category #1 | Pct. #1 | Next Category #2 | Pct. #2 | Next Category #3 | Pct. #3 | Next Category #4 | Pct. #4 | Next Category #5 | Pct. #5 |
