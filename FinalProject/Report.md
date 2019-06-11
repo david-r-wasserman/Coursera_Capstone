@@ -55,7 +55,7 @@ To illustrate the methodology, the data in the "Sports Bar" category is presente
 
 ![pandas DataFrame](oneCategory.JPG "Sports Bar category")
 
-Each row is a venue. Where do people go after visiting this venue? For each venue, Foursquare has given up to five likely answers. The categories of these five are in columns next1 through next5. Of these 15 venues, 14 have one or more next venue. There are a total of 47 next venues in 33 different categories.
+Each row is a venue. Where do people go after visiting this venue? For each venue, Foursquare has given up to five likely answers. The categories of these five are in columns next1 through next5. Of these 15 venues, 14 have one or more next venue. There are a total of 47 next venues in 34 different categories.
 
 Below are shown the counts of occurrences of categories in the column next1:
 
