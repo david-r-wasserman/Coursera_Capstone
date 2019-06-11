@@ -1,6 +1,6 @@
 # Targeting Consumers According to Venue Categories in Los Angeles, USA
 
-## Introduction/Business Problem
+## Business Problem
 
 Is a person visiting an art gallery likely to next visit a French restaurant? Is a person visiting a metro station likely to next visit a tailor shop? In general, is a person visiting a venue of category *x* likely to next visit a venue of category *y*? In this project, pairs (*x*, *y*) were found for which the answer is Yes.
 
@@ -55,7 +55,7 @@ To illustrate the methodology, the data in the "Sports Bar" category is presente
 
 ![pandas DataFrame](oneCategory.JPG "Sports Bar category")
 
-Each row is a venue. Where do people go after visiting this venue? For each venue, Foursquare has given up to five likely answers. The categories of these five are in columns next1 through next5.
+Each row is a venue. Where do people go after visiting this venue? For each venue, Foursquare has given up to five likely answers. The categories of these five are in columns next1 through next5. Of these 15 venues, 14 have one or more next venue. There are a total of 47 next venues in 33 different categories.
 
 Below are shown the counts of occurrences of categories in the column next1:
 
