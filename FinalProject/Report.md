@@ -8,15 +8,15 @@ This problem is relevant to anyone who delivers targeted advertising to consumer
 
 ### Alternative approaches not considered
 
-It is possible to ask a more specific question: is a person visiting venue *v* likely to next visit a venue of category *y*? Or even more specific: is a person visiting venue *v* likely to next visit a venue of category *w*? These questions were not considered in this study because the available data was very limited. In order to obtain adequate sample sizes, it was necessary to aggregate the results of multiple venues within a category.
+It is possible to ask a more specific question: is a person visiting venue *v* likely to next visit a venue of category *y*? Or even more specific: is a person visiting venue *v* likely to next visit venue *w*? These questions were not considered in this study because the available data was very limited. In order to obtain adequate sample sizes, it was necessary to aggregate the results of multiple venues within a category.
 
 ## Data
 
 ### Data sources
 
-Data for this project came from Foursquare. Foursquare has a large database of venues. Each venue has a category. Many Foursquare users frequently notify Foursquare that they are currently located at one of these venues. This is called "checking in" at the venue.
+Data for this project came from Foursquare. Foursquare has a large database of venues. Each venue has a category. Many Foursquare users frequently notify Foursquare that they are currently located at one of these venues. This is called **checking in** at the venue.
 
-The Foursquare API includes a feature called "Get Next Venues". Here is the description from [the API documentation](https://developer.foursquare.com/docs/api/venues/nextvenues): 
+The Foursquare API includes a feature called "Get Next Venues" or "nextvenues". Here is the description from [the API documentation](https://developer.foursquare.com/docs/api/venues/nextvenues): 
 
 > Returns venues that people often check in to after the current venue. Up to 5 venues are returned in each query, and results are sorted by how many people have visited that venue after the current one. 
 
@@ -34,11 +34,20 @@ Experiments were performed in which the center point was chosen randomly within 
 
 Many queries returned exactly 100 venues. Most likely, this means there were *n* > 100 venues within the query radius. It was not known how Foursquare chooses 100 out of the _n_ venues. Its selection rule could cause an unknown bias. Therefore, when a query returned 100 venues, these results were not used. However, if these results were simply ignored, that would undersample areas with a high density of venues. To avoid this problem, whenever a query returned 100 venues, it was replaced with four more queries with half the radius. These four queries covered the same total area as the original query.
 
-A function `get_nearby_venues_unbiased` was written to get venues within 1000 meters of a specified point, and replace this query with four more queries when necessary. `get_nearby_venues_unbiased` was called repeatedly with random locations until at least 10,000 venues were found within the study area. For each venue, only its ID and category were saved.
+A function `get_nearby_venues_unbiased` was written to get venues within 1000 meters of a specified point, and replace this query with four more queries when necessary. `get_nearby_venues_unbiased` was called repeatedly with random locations until at least 10,000 different venues were found within the study area. For each venue, only its ID and category were saved.
 
 ### Obtaining next venues
 
-A Foursquare nextvenues query was executed for each of the venues found. The numbers of next venues returned from each query ranged from 0 to 5. Only the categories of the next venues were saved.
+A Foursquare nextvenues query was executed for each of the 10,000 venues found. The numbers of next venues returned from each query varied:
+
+ * 5045 venues had no next venues
+ * 1041 venues had one next venue
+ * 626 venues had two next venues
+ * 440 venues had three next venues 
+ * 288 venues had four next venues 
+ * 2560 venues had five next venues  
+
+ Only the categories of the next venues were saved.
 
 ## Methodology
 
@@ -62,21 +71,21 @@ It would be desirable to add up the total number of times people went to these o
 
 The total score for each category is obtained by adding across the rows:
 
-![pandas Series](totalScore.JPG "Total scores")
+![pandas Series](totalScores.JPG "Total scores")
 
 Finally, these scores are converted to percentages by dividing by the total, and the top five are listed in descending order:
 
 ![pandas Series](topFive.JPG "Top five categories")
 
-Thus, it is estimated that someone at a sports bar has a 14.5 percent chance of next visiting a basketball stadium, and that the next four most likely categories are baseball stadium, college football field, Korean restaurant, and rock club.
+Thus, it is estimated that someone at a sports bar has a 10.1 percent chance of next visiting a basketball stadium, and that the next four most likely categories are baseball stadium, college football field, Korean restaurant, and rock club.
 
 ### Categories included
 
-<pre>
-The computation above was repeated for all 122 categories in which there were 
+The computation above was repeated for all 122 categories in which there were  
+
   1. at least 10 venues with next venues
   2. a total of at least 20 next venues. 
- </pre>
+
 
 ## Results
 
@@ -210,11 +219,11 @@ Results are shown in the table below:
 
 The results show that for 18 of the 122 categories, the most likely next category is the current category. Also, for 47 of the 122 categories, the current category is one of the five most likely next categories. This raises a question: can a venue be included in its own next venues? This study did not test for this case, and the API documentation does not mention it. 
 
-<pre>
 For some venues, it is clear that the next venues should be expected to include other venues of the same category. For example, in the category Zoo Exhibit, there is a 74.4 percent chance that the next category is Zoo Exhibit. This makes sense because 
+
    * zoo visitors normally visit multiple exhibits before leaving the zoo 
    * a person who checks in at one exhibit is likely to check in at others. 
-</pre>
+
 
 ### Recommendations
 
