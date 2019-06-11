@@ -6,9 +6,13 @@ Is a person visiting an art gallery likely to next visit a French restaurant? Is
 
 This problem is relevant to anyone who delivers targeted advertising to consumers. Advertising seeks to change consumer behavior, but the most likely changes are those that remain within the bounds of normal behavior. Let *P*(*x*, *y*) denote the probability that a person visiting a venue of category *x* next visits a venue of category *y*. If *P*(*x*, *y*) is high, then it makes sense to advertise venues of category *y* to people currently located at venues of category *x*.
 
+### Alternative approaches not considered
+
+It is possible to ask a more specific question: is a person visiting venue *v* likely to next visit a venue of category *y*? Or even more specific: is a person visiting venue *v* likely to next visit a venue of category *w*? These questions were not considered in this study because the available data was very limited. In order to obtain adequate sample sizes, it was necessary to aggregate the results of multiple venues within a category.
+
 ## Data
 
-### Data Sources
+### Data sources
 
 Data for this project came from Foursquare. Foursquare has a large database of venues. Each venue has a category. Many Foursquare users frequently notify Foursquare that they are currently located at one of these venues. This is called "checking in" at the venue.
 
@@ -18,7 +22,7 @@ The Foursquare API includes a feature called "Get Next Venues". Here is the desc
 
 The output of this feature also includes the category of each returned venue.
 
-### Venue Selection
+### Venue selection
 
 The region of study, shown in the figure below, was a square, 25 kilometers by 25 kilometers, centered at 34.052200° N, 118.243700° W. These coordinates were obtained by searching Google for "los angeles lat/lon".
 
@@ -32,7 +36,7 @@ Many queries returned exactly 100 venues. Most likely, this means there were *n*
 
 A function `get_nearby_venues_unbiased` was written to get venues within 1000 meters of a specified point, and replace this query with four more queries when necessary. `get_nearby_venues_unbiased` was called repeatedly with random locations until at least 10,000 venues were found within the study area. For each venue, only its ID and category were saved.
 
-### Obtaining Next Venues
+### Obtaining next venues
 
 A Foursquare nextvenues query was executed for each of the venues found. The numbers of next venues returned from each query ranged from 0 to 5. Only the categories of the next venues were saved.
 
@@ -68,14 +72,13 @@ Thus, it is estimated that someone at a sports bar has a 14.5 percent chance of 
 
 ### Categories included
 
-The computation above was repeated for all 122 categories in which there were at least 10 venues, with a total of at least 20 next venues. 
+<pre>
+The computation above was repeated for all 122 categories in which there were 
+  1. at least 10 venues with next venues
+  2. a total of at least 20 next venues. 
+ </pre>
 
 ## Results
-
-| Command | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
 
 Results are shown in the table below:
 
@@ -201,4 +204,24 @@ Results are shown in the table below:
 | Wine Shop | 15 | 13 | 50 | Grocery Store | 28.0 | American Restaurant | 7.1 | Big Box Store | 6.6 | Cocktail Bar | 4.9 | Shopping Mall | 4.4 |
 
 
-## 
+## Discussion
+
+### Observations
+
+The results show that for 18 of the 122 categories, the most likely next category is the current category. Also, for 47 of the 122 categories, the current category is one of the five most likely next categories. This raises a question: can a venue be included in its own next venues? This study did not test for this case, and the API documentation does not mention it. 
+
+<pre>
+For some venues, it is clear that the next venues should be expected to include other venues of the same category. For example, in the category Zoo Exhibit, there is a 74.4 percent chance that the next category is Zoo Exhibit. This makes sense because 
+   * zoo visitors normally visit multiple exhibits before leaving the zoo 
+   * a person who checks in at one exhibit is likely to check in at others. 
+</pre>
+
+### Recommendations
+
+To those who target advertising to consumers, the author recommends that the table in the Results section should be used for consumers in the Los Angeles area, in combination with other available information about those consumers. 
+
+The study may be repeated for other areas at low cost. It requires fewer than 11,000 API calls, all of which are regular calls. A verified Foursquare developer account is free and allows 99,500 regular calls per day, so the study could be repeated nine times per day. It would be useful to repeat the study for nine areas and compare the results. If the results are similar enough, they may be applied for targeting advertising in other areas, without having to repeat the study in these areas.
+
+## Conclusion
+
+In summary, let *P*(*x*, *y*) denote the probability that a person visiting a venue of category *x* in the Los Angeles area next visits a venue of category *y*. The Foursquare API was used to estimate these probabilities. For each of 122 categories, the five most likely next categories were found. These results can help deliver targeted advertising to people currently at venues of these 122 categories in Los Angeles.
